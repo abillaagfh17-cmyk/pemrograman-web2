@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Master E-Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
+  <body data-page="data-master">
+    <div class="page-shell">
+      <aside class="sidebar open">
+        <div class="sidebar-header">
+          <div class="brand">
+            <div class="brand-mark">E</div>
+            <span>E-Library</span>
+          </div>
+          <button class="icon-button" type="button" data-sidebar-toggle>☰</button>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Menu</div>
+          <ul class="nav-list">
+            <li><a class="nav-link" href="dashboard.html" data-page="dashboard"><span class="icon">◫</span>Dashboard</a></li>
+            <li><a class="nav-link active" href="data-master.html" data-page="data-master"><span class="icon">▣</span>Data Master</a></li>
+            <li><a class="nav-link" href="form.html" data-page="form"><span class="icon">✎</span>Form</a></li>
+            <li><a class="nav-link" href="laporan.html" data-page="laporan"><span class="icon">▤</span>Laporan</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button" type="button" data-sidebar-toggle>☰</button>
+            <div class="search-box">
+              <span>⌕</span>
+              <input type="text" placeholder="Cari buku atau anggota" data-table-search id="bookSearch" />
+            </div>
+          </div>
+          <div class="topbar-right">
+            <button class="icon-button" type="button" data-logout title="Logout">⇠</button>
+            <button class="icon-button" type="button">⚙</button>
+            <div class="icon-button" aria-label="Profil admin" data-user-name>A</div>
+          </div>
+        </header>
+
+        <section class="page-content">
+          <div class="card table-card">
+            <div class="table-actions">
+              <div>
+                <h2 class="panel-title">Data Master Buku</h2>
+                <p class="muted">Kelola katalog, anggota, kategori, dan petugas.</p>
+              </div>
+              <div class="action-group">
+                <button class="filter-btn" type="button">Filter</button>
+                <button class="secondary-btn" type="button" id="exportBookTable" style="color: var(--text); border-color: var(--line);">Export CSV</button>
+                <button class="primary-btn" type="button" data-open-modal>Tambah Buku</button>
+              </div>
+            </div>
+
+            <table id="bookTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>ISBN</th>
+                  <th>Judul</th>
+                  <th>Pengarang</th>
+                  <th>Kategori</th>
+                  <th>Status</th>
+                  <th>Stok</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal" aria-modal="true" role="dialog">
+      <div class="modal-box">
+        <h3 id="bookModalTitle">Tambah Buku Baru</h3>
+        <form id="bookForm">
+          <input type="hidden" id="bookId" />
+          <div class="form-grid" style="margin-top:1rem;">
+            <div class="field">
+              <label for="bookIsbn">ISBN</label>
+              <input id="bookIsbn" type="text" placeholder="978-..." required />
+            </div>
+            <div class="field">
+              <label for="bookTitle">Judul Buku</label>
+              <input id="bookTitle" type="text" placeholder="Masukkan judul" required />
+            </div>
+            <div class="field">
+              <label for="bookAuthor">Pengarang</label>
+              <input id="bookAuthor" type="text" placeholder="Nama pengarang" required />
+            </div>
+            <div class="field">
+              <label for="bookCategory">Kategori</label>
+              <select id="bookCategory" required>
+                <option value="">Pilih kategori</option>
+                <option>Sains</option>
+                <option>Sosial</option>
+                <option>Teknik</option>
+                <option>Bisnis</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="bookStatus">Status</label>
+              <select id="bookStatus" required>
+                <option value="">Pilih status</option>
+                <option>Tersedia</option>
+                <option>Dipinjam</option>
+                <option>Kosong</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="bookStock">Stok</label>
+              <input id="bookStock" type="number" min="0" value="0" required />
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button class="secondary-btn" type="button" data-close-modal style="color: var(--text); border-color: var(--line);">Batal</button>
+            <button class="primary-btn" type="submit">Simpan</button>
+          </div>
+        </form>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/data-master.js"></script>
+  </body>
+</html>

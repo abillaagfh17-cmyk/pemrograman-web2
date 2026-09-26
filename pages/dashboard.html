@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard E-Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body data-page="dashboard">
+    <div class="page-shell">
+      <aside class="sidebar open">
+        <div class="sidebar-header">
+          <div class="brand">
+            <div class="brand-mark">E</div>
+            <span>E-Library</span>
+          </div>
+          <button class="icon-button" type="button" data-sidebar-toggle>☰</button>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Menu</div>
+          <ul class="nav-list">
+            <li><a class="nav-link active" href="dashboard.html" data-page="dashboard"><span class="icon">◫</span>Dashboard</a></li>
+            <li><a class="nav-link" href="data-master.html" data-page="data-master"><span class="icon">▣</span>Data Master</a></li>
+            <li><a class="nav-link" href="form.html" data-page="form"><span class="icon">✎</span>Form</a></li>
+            <li><a class="nav-link" href="laporan.html" data-page="laporan"><span class="icon">▤</span>Laporan</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button" type="button" data-sidebar-toggle>☰</button>
+            <div class="search-box">
+              <span>⌕</span>
+              <input type="text" placeholder="Cari data, kategori, buku..." />
+            </div>
+          </div>
+          <div class="topbar-right">
+            <button class="icon-button" type="button" data-logout title="Logout">⇠</button>
+            <button class="icon-button" type="button">⚙</button>
+            <div class="icon-button" aria-label="Profil admin" data-user-name>A</div>
+          </div>
+        </header>
+
+        <section class="page-content">
+          <div class="hero">
+            <div>
+              <div class="hero-badge">Live repository</div>
+              <h1>Selamat Datang, Admin Pustaka</h1>
+              <p>Ringkasan aktivitas peminjaman buku, anggota aktif, dan transaksi perpustakaan digital hari ini.</p>
+            </div>
+            <div class="hero-actions">
+              <button class="secondary-btn" type="button" data-download-report>Unduh Laporan</button>
+              <button class="primary-btn" type="button" data-add-transaction>Tambah Transaksi</button>
+            </div>
+          </div>
+
+          <div class="grid-4">
+            <div class="card stat-card">
+              <div class="stat-row">
+                <div>
+                  <div class="stat-label">Total Buku</div>
+                  <div class="stat-value">14.8K</div>
+                </div>
+                <div class="stat-icon">B</div>
+              </div>
+              <div class="stat-meta">+120 judul baru bulan ini</div>
+            </div>
+
+            <div class="card stat-card">
+              <div class="stat-row">
+                <div>
+                  <div class="stat-label">Anggota Aktif</div>
+                  <div class="stat-value">3.4K</div>
+                </div>
+                <div class="stat-icon">A</div>
+              </div>
+              <div class="stat-meta">+8.5% keaktifan</div>
+            </div>
+
+            <div class="card stat-card">
+              <div class="stat-row">
+                <div>
+                  <div class="stat-label">Peminjaman</div>
+                  <div class="stat-value">428</div>
+                </div>
+                <div class="stat-icon">P</div>
+              </div>
+              <div class="stat-meta">34 mendekati jatuh tempo</div>
+            </div>
+
+            <div class="card stat-card">
+              <div class="stat-row">
+                <div>
+                  <div class="stat-label">Denda</div>
+                  <div class="stat-value">Rp 1.45M</div>
+                </div>
+                <div class="stat-icon">D</div>
+              </div>
+              <div class="stat-meta">28 transaksi tertunggak</div>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="card chart-card">
+              <div class="panel-header">
+                <h3 class="panel-title">Tren Sirkulasi</h3>
+                <span class="badge info">Juli 2026</span>
+              </div>
+              <div class="chart-wrap">
+                <canvas id="trendChart"></canvas>
+              </div>
+              <div class="legend">
+                <span><span class="legend-dot" style="background:#2563eb"></span> Dipinjam</span>
+                <span><span class="legend-dot" style="background:#14b8a6"></span> Dikembalikan</span>
+              </div>
+            </div>
+
+            <div class="card chart-card">
+              <div class="panel-header">
+                <h3 class="panel-title">Distribusi Kategori</h3>
+                <span class="muted">Dewey</span>
+              </div>
+              <div class="donut-wrap">
+                <canvas id="categoryChart"></canvas>
+                <div class="donut-center">
+                  <strong>42%</strong>
+                  <small>Sains</small>
+                </div>
+              </div>
+              <div class="category-list">
+                <div class="category-item"><div class="category-left"><span class="legend-dot" style="background:#2563eb"></span>Sains</div><strong>38%</strong></div>
+                <div class="category-item"><div class="category-left"><span class="legend-dot" style="background:#14b8a6"></span>Sosial</div><strong>27%</strong></div>
+                <div class="category-item"><div class="category-left"><span class="legend-dot" style="background:#f59e0b"></span>Teknik</div><strong>23%</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+  </body>
+</html>

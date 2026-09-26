@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan E-Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
+  <body data-page="laporan">
+    <div class="page-shell">
+      <aside class="sidebar open">
+        <div class="sidebar-header">
+          <div class="brand">
+            <div class="brand-mark">E</div>
+            <span>E-Library</span>
+          </div>
+          <button class="icon-button" type="button" data-sidebar-toggle>☰</button>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Menu</div>
+          <ul class="nav-list">
+            <li><a class="nav-link" href="dashboard.html" data-page="dashboard"><span class="icon">◫</span>Dashboard</a></li>
+            <li><a class="nav-link" href="data-master.html" data-page="data-master"><span class="icon">▣</span>Data Master</a></li>
+            <li><a class="nav-link" href="form.html" data-page="form"><span class="icon">✎</span>Form</a></li>
+            <li><a class="nav-link active" href="laporan.html" data-page="laporan"><span class="icon">▤</span>Laporan</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button" type="button" data-sidebar-toggle>☰</button>
+            <div class="search-box">
+              <span>⌕</span>
+              <input type="text" placeholder="Cari laporan..." data-table-search />
+            </div>
+          </div>
+          <div class="topbar-right">
+            <button class="icon-button" type="button" data-logout title="Logout">⇠</button>
+            <button class="icon-button" type="button">⚙</button>
+            <div class="icon-button" aria-label="Profil admin">A</div>
+          </div>
+        </header>
+
+        <section class="page-content">
+          <div class="card">
+            <div class="table-actions">
+              <div>
+                <h2 class="panel-title">Laporan Aktivitas Perpustakaan</h2>
+                <p class="muted">Rekap bulanan dan ringkasan penggunaan sistem.</p>
+              </div>
+              <div class="action-group">
+                <button class="filter-btn" id="filterPeriodButton" type="button">Filter Bulan</button>
+                <button class="primary-btn" id="printButton" type="button">Cetak</button>
+                <button class="secondary-btn" id="exportButton" type="button" style="color: var(--text); border-color: var(--line);">Export CSV</button>
+              </div>
+            </div>
+            <div class="grid-4">
+              <div class="card stat-card">
+                <div class="stat-label">Jumlah Peminjaman</div>
+                <div class="stat-value">1.240</div>
+                <div class="stat-meta">Bulan ini</div>
+              </div>
+              <div class="card stat-card">
+                <div class="stat-label">Pengembalian</div>
+                <div class="stat-value">1.105</div>
+                <div class="stat-meta">Tepat waktu</div>
+              </div>
+              <div class="card stat-card">
+                <div class="stat-label">Denda</div>
+                <div class="stat-value">Rp 3.6M</div>
+                <div class="stat-meta">Target tunai bulanan</div>
+              </div>
+              <div class="card stat-card">
+                <div class="stat-label">Koleksi Populer</div>
+                <div class="stat-value">Top 25</div>
+                <div class="stat-meta">Sains & teknologi</div>
+              </div>
+            </div>
+
+            <table id="reportTable" style="margin-top:1.5rem;">
+              <thead>
+                <tr>
+                  <th>Jenis Laporan</th>
+                  <th>Periode</th>
+                  <th>Nilai</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-row>
+                  <td>Rekap Peminjaman</td>
+                  <td>Juli 2026</td>
+                  <td>1.240 transaksi</td>
+                  <td><span class="badge success">Tuntas</span></td>
+                </tr>
+                <tr data-row>
+                  <td>Analisis Kategori</td>
+                  <td>Juli 2026</td>
+                  <td>42% Sains</td>
+                  <td><span class="badge info">Siap</span></td>
+                </tr>
+                <tr data-row>
+                  <td>Monitoring Denda</td>
+                  <td>Juli 2026</td>
+                  <td>Rp 3.6M</td>
+                  <td><span class="badge warning">Perlu fokus</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/laporan.js"></script>
+  </body>
+</html>

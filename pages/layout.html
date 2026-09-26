@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Admin E-Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
+  <body data-page="dashboard">
+    <div class="page-shell">
+      <aside class="sidebar open">
+        <div class="sidebar-header">
+          <div class="brand">
+            <div class="brand-mark">E</div>
+            <span>E-Library</span>
+          </div>
+          <button class="icon-button" type="button" data-sidebar-toggle>☰</button>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Menu</div>
+          <ul class="nav-list">
+            <li><a class="nav-link active" href="dashboard.html" data-page="dashboard"><span class="icon">◫</span>Dashboard</a></li>
+            <li><a class="nav-link" href="data-master.html" data-page="data-master"><span class="icon">▣</span>Data Master</a></li>
+            <li><a class="nav-link" href="form.html" data-page="form"><span class="icon">✎</span>Form</a></li>
+            <li><a class="nav-link" href="laporan.html" data-page="laporan"><span class="icon">▤</span>Laporan</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button" type="button" data-sidebar-toggle>☰</button>
+            <div class="search-box">
+              <span>⌕</span>
+              <input type="text" placeholder="Cari data, kategori, buku..." />
+            </div>
+          </div>
+          <div class="topbar-right">
+            <button class="icon-button" type="button">⚙</button>
+            <div class="avatar">A</div>
+          </div>
+        </header>
+
+        <section class="page-content">
+          <div class="card">
+            <h2>Template Layout</h2>
+            <p class="muted">Gunakan file ini sebagai master layout dasar untuk halaman admin.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>
