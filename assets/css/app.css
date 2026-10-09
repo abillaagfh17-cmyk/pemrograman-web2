@@ -1,0 +1,21 @@
+:root {
+  font-synthesis: none;
+}
+
+@media print {
+  aside,
+  header.fixed,
+  #mobileNavToggle,
+  #mobileNavBackdrop,
+  footer.sticky {
+    display: none !important;
+  }
+
+  body > div.pl-64 {
+    padding-left: 0 !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+  }
+}

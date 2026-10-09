@@ -1,42 +1,275 @@
 <!DOCTYPE html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Admin E-Library</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
-  <body class="login-page" data-page="login">
-    <div class="login-card">
-      <div class="login-head">
-        <div class="login-brand">E</div>
-        <h2>Masuk Admin</h2>
-        <p class="muted">Sistem Informasi Perpustakaan Digital</p>
-      </div>
 
-      <form id="loginForm" class="login-form">
-        <div class="field">
-          <label for="email">Email / Username</label>
-          <input id="email" type="text" value="admin@perpus.id" required />
-        </div>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary-container": "#2563eb", "surface-container-highest": "#d3e4fe", "on-surface": "#0b1c30", "on-tertiary-fixed": "#001d31", "tertiary-fixed": "#cce5ff", "primary": "#004ac6", "on-tertiary-container": "#e7f2ff", "on-tertiary": "#ffffff", "surface-bright": "#f8f9ff", "surface-container-lowest": "#ffffff", "background": "#f8f9ff", "secondary": "#565e74", "on-secondary-fixed": "#131b2e", "primary-fixed": "#dbe1ff", "secondary-container": "#dae2fd", "outline": "#737686", "on-error": "#ffffff", "tertiary-container": "#0073ae", "surface": "#f8f9ff", "tertiary-fixed-dim": "#93ccff", "surface-container-high": "#dce9ff", "inverse-surface": "#213145", "error-container": "#ffdad6", "secondary-fixed-dim": "#bec6e0", "inverse-on-surface": "#eaf1ff", "error": "#ba1a1a", "on-primary": "#ffffff", "on-primary-fixed-variant": "#003ea8", "surface-container": "#e5eeff", "outline-variant": "#c3c6d7", "on-secondary": "#ffffff", "on-tertiary-fixed-variant": "#004b73", "on-secondary-container": "#5c647a", "on-background": "#0b1c30", "on-error-container": "#93000a", "on-primary-fixed": "#00174b", "surface-tint": "#0053db", "secondary-fixed": "#dae2fd", "surface-variant": "#d3e4fe", "surface-dim": "#cbdbf5", "inverse-primary": "#b4c5ff", "surface-container-low": "#eff4ff", "primary-fixed-dim": "#b4c5ff", "on-surface-variant": "#434655", "tertiary": "#005a89", "on-secondary-fixed-variant": "#3f465c", "on-primary-container": "#eeefff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xs": "0.25rem", "space-sm": "0.5rem", "margin-compact": "1rem", "space-xxs": "0.125rem", "margin": "1.5rem", "space-2xl": "2rem", "space-lg": "1rem", "space-xl": "1.5rem", "gutter": "1rem", "space-md": "0.75rem", "gutter-compact": "0.5rem" }, "fontFamily": { "table-header": [ "Inter" ], "label-compact": [ "Inter" ], "body-compact": [ "Inter" ], "code-mono": [ "Inter" ], "headline-sm": [ "Plus Jakarta Sans" ], "label-default": [ "Inter" ], "body-default": [ "Inter" ], "headline-lg": [ "Plus Jakarta Sans" ], "badge-status": [ "Inter" ], "table-data": [ "Inter" ], "display-kpi": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ] }, "fontSize": { "table-header": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" } ], "label-compact": [ "11px", { "lineHeight": "14px", "fontWeight": "500" } ], "body-compact": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "code-mono": [ "11px", { "lineHeight": "14px", "fontWeight": "500" } ], "headline-sm": [ "15px", { "lineHeight": "20px", "fontWeight": "600" } ], "label-default": [ "12px", { "lineHeight": "16px", "fontWeight": "500" } ], "body-default": [ "13px", { "lineHeight": "18px", "fontWeight": "400" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "badge-status": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.01em", "fontWeight": "600" } ], "table-data": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "display-kpi": [ "32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" } ] } } } };</script></head><body class="bg-surface font-body-default text-on-surface relative min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed"><div class="pointer-events-none fixed inset-0 z-0 overflow-hidden"><div class="absolute -top-32 -left-32 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl"></div><div class="absolute -bottom-32 -right-32 w-96 h-96 bg-tertiary-container/10 rounded-full blur-3xl"></div><div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-surface-container-low/60 via-transparent to-transparent"></div></div><main class="relative z-10 w-full min-h-screen flex flex-col justify-between items-center px-margin py-margin"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto py-space-md sm:py-space-xl">
+<!-- Top System Status Strip -->
+<div class="flex items-center justify-between pb-space-md mb-space-lg text-secondary">
+<div class="flex items-center gap-space-sm text-label-default">
+<span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-code-mono text-code-mono uppercase tracking-wider text-secondary">Cluster Gateway: JKT-EDU-01</span>
+<span class="text-outline-variant">|</span>
+<span class="font-label-compact text-label-compact text-on-surface-variant hidden sm:inline">Status Layanan: 99.98% Normal</span>
+</div>
+<div class="flex items-center gap-space-md text-label-compact">
+<a class="text-secondary hover:text-primary transition-colors flex items-center gap-1" href="#panduan">
+<span class="material-symbols-outlined text-[15px]">menu_book</span>
+<span class="hidden sm:inline">Panduan SIM-ASET</span>
+</a>
+<a class="text-secondary hover:text-primary transition-colors flex items-center gap-1" href="#helpdesk">
+<span class="material-symbols-outlined text-[15px]">support_agent</span>
+<span>Helpdesk TIK</span>
+</a>
+</div>
+</div>
+<!-- Main Grid: Left Hero Branding & Right Login Form Card -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-space-2xl items-stretch">
+<!-- LEFT COLUMN: Institutional Branding & Telemetry -->
+<div class="lg:col-span-6 xl:col-span-7 flex flex-col justify-between p-space-lg lg:p-space-2xl bg-surface-container-low rounded-xl relative overflow-hidden shadow-sm">
+<!-- Subtle Vector Graphic Elements -->
+<div class="absolute -top-16 -right-16 w-80 h-80 rounded-full bg-primary-container/10 blur-2xl pointer-events-none"></div>
+<div class="absolute -bottom-20 -left-12 w-72 h-72 rounded-full bg-tertiary-container/10 blur-2xl pointer-events-none"></div>
+<div class="relative z-10">
+<!-- Institutional Logo Badge -->
+<div class="flex items-center gap-space-md mb-space-2xl">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-md">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">domain_verification</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md tracking-tight font-bold text-primary">SIM-ASET</span>
+<span class="px-space-xs py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-badge-status text-badge-status tracking-wide">ENTERPRISE</span>
+</div>
+<p class="font-label-default text-label-default text-secondary">Sistem Pengelolaan Sarpras &amp; Logistik Kampus</p>
+</div>
+</div>
+<!-- Editorial Headline -->
+<div class="max-w-xl">
+<span class="font-code-mono text-code-mono uppercase tracking-widest text-primary font-semibold mb-space-xs block">Portal Sentral Infrastruktur BMN</span>
+<h1 class="font-headline-lg text-headline-lg lg:text-[34px] lg:leading-[42px] font-bold text-on-surface mb-space-md tracking-tight">
+              Portal Pengelolaan Sarana, Prasarana &amp; Logistik Aset Terpadu
+            </h1>
+<p class="font-body-default text-body-default text-secondary leading-relaxed mb-space-xl">
+              Akses tersentralisasi untuk verifikasi inventaris, audit BMN berkala, pemantauan status pemeliharaan fasilitas teknis, serta pelacakan QR Code &amp; RFID aset institusi secara mutakhir.
+            </p>
+</div>
+<!-- Key Metrics Bento Row -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md mb-space-2xl">
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between text-secondary mb-space-xs">
+<span class="font-table-header text-table-header uppercase">Total Aset</span>
+<span class="material-symbols-outlined text-primary text-[18px]">inventory_2</span>
+</div>
+<div class="font-headline-md text-headline-md font-bold text-on-surface">2.845+</div>
+<div class="font-label-compact text-label-compact text-emerald-600 mt-1 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+<span>Terdata &amp; Terverifikasi</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between text-secondary mb-space-xs">
+<span class="font-table-header text-table-header uppercase">Audit BMN</span>
+<span class="material-symbols-outlined text-tertiary text-[18px]">fact_check</span>
+</div>
+<div class="font-headline-md text-headline-md font-bold text-on-surface">100%</div>
+<div class="font-label-compact text-label-compact text-secondary mt-1">
+                Sinkron SIMAN DJKN
+              </div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between text-secondary mb-space-xs">
+<span class="font-table-header text-table-header uppercase">Kepatuhan</span>
+<span class="material-symbols-outlined text-primary-container text-[18px]">verified_user</span>
+</div>
+<div class="font-headline-md text-headline-md font-bold text-on-surface">ISO 27001</div>
+<div class="font-label-compact text-label-compact text-secondary mt-1">
+                Data Keamanan Terjamin
+              </div>
+</div>
+</div>
+<!-- Feature Tag Pills -->
+<div class="flex flex-wrap gap-space-xs mb-space-xl">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded bg-surface-container text-on-surface-variant font-label-compact text-label-compact">
+<span class="material-symbols-outlined text-[14px] text-primary">qr_code_scanner</span>
+              Pindai QR Inventaris
+            </span>
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded bg-surface-container text-on-surface-variant font-label-compact text-label-compact">
+<span class="material-symbols-outlined text-[14px] text-primary">build</span>
+              Tiket Pemeliharaan Rutin
+            </span>
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded bg-surface-container text-on-surface-variant font-label-compact text-label-compact">
+<span class="material-symbols-outlined text-[14px] text-primary">analytics</span>
+              Laporan Depresiasi Otomatis
+            </span>
+</div>
+</div>
+<!-- Left Column Footer Notice -->
+<div class="relative z-10 pt-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm font-label-compact text-label-compact text-secondary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">account_balance</span>
+<span>Biro Sarana &amp; Prasarana Kampus Terpadu</span>
+</div>
+<div>Direktorat Sistem Informasi © 2025</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Authentication Portal Card -->
+<div class="lg:col-span-6 xl:col-span-5 flex flex-col justify-center">
+<div class="bg-surface-container-lowest p-space-lg sm:p-space-2xl rounded-xl shadow-lg relative">
+<!-- Card Header -->
+<div class="mb-space-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-compact text-label-compact text-primary font-semibold tracking-wider uppercase">Portal Akses Pegawai</span>
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-code-mono text-[10px] font-semibold">SSO ONLINE</span>
+</div>
+<h2 class="font-headline-md text-headline-md sm:text-[22px] font-bold text-on-surface">Selamat Datang Kembali</h2>
+<p class="font-body-default text-body-default text-secondary mt-1">Silakan masuk dengan kredensial NIP, NIDN, atau Email dinas resmi Anda.</p>
+</div>
+<!-- Role Selector Tabs -->
+<div class="grid grid-cols-2 p-1 bg-surface-container-low rounded-lg mb-space-lg" id="roleTabs">
+<button class="py-2 px-space-sm rounded font-label-default text-label-default font-semibold text-center transition-all bg-surface-container-lowest text-primary shadow-sm flex items-center justify-center gap-1.5" id="tabAdmin" type="button">
+<span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
+<span>Petugas / Admin</span>
+</button>
+<button class="py-2 px-space-sm rounded font-label-default text-label-default font-medium text-secondary hover:text-on-surface text-center transition-all flex items-center justify-center gap-1.5" id="tabUser" type="button">
+<span class="material-symbols-outlined text-[16px]">science</span>
+<span>Peminjam Lab / Unit</span>
+</button>
+</div>
+<!-- Login Form -->
+<form class="flex flex-col gap-space-md" id="loginForm" onsubmit="return false;">
+<!-- Input 1: NIP / NIDN / Email -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-default text-label-default font-semibold text-on-surface flex items-center justify-between" for="identifierInput">
+<span>NIP / NIDN / Email Institusi</span>
+<span class="text-[11px] font-normal text-secondary font-code-mono">Wajib diisi</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px] pointer-events-none">person</span>
+<input class="w-full pl-10 pr-3 py-2 bg-surface-container-lowest text-on-surface font-body-default text-body-default rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-bright placeholder:text-outline-variant transition-all shadow-sm" id="identifierInput" placeholder="misal: 198204122008011004 atau admin.sarpras@kampus.ac.id" required="" type="text"/>
+</div>
+</div>
+<!-- Input 2: Kata Sandi -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-default text-label-default font-semibold text-on-surface" for="passwordInput">Kata Sandi</label>
+<a class="font-label-compact text-label-compact text-primary hover:underline font-medium" href="#reset-password">Lupa Kata Sandi?</a>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px] pointer-events-none">lock</span>
+<input class="w-full pl-10 pr-10 py-2 bg-surface-container-lowest text-on-surface font-body-default text-body-default rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-bright placeholder:text-outline-variant transition-all shadow-sm" id="passwordInput" placeholder="Masukkan kata sandi akun Anda" required="" type="password"/>
+<button aria-label="Tampilkan atau sembunyikan kata sandi" class="absolute right-2 p-1 text-secondary hover:text-on-surface rounded transition-colors flex items-center justify-center" id="togglePasswordBtn" type="button">
+<span class="material-symbols-outlined text-[18px]" id="eyeIcon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Session & Remember Checkbox -->
+<div class="flex items-center justify-between pt-1">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<input class="w-4 h-4 rounded text-primary-container focus:ring-primary-container accent-primary-container cursor-pointer" id="rememberSession" type="checkbox"/>
+<span class="font-body-compact text-body-compact text-on-surface-variant">Ingat sesi login saya selama 14 hari</span>
+</label>
+<span class="hidden sm:inline-flex items-center gap-1 text-[11px] text-secondary font-label-compact">
+<span class="material-symbols-outlined text-[13px] text-emerald-600">lock</span>
+                2FA Aktif
+              </span>
+</div>
+<!-- Primary Submission CTA Button -->
+<button class="w-full mt-space-sm py-2.5 px-space-md bg-primary-container hover:bg-primary text-on-primary font-headline-sm text-headline-sm rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]" id="submitBtn" type="submit">
+<span>Masuk ke Sistem SIM-ASET</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<!-- Divider with Label -->
+<div class="relative my-space-sm flex items-center justify-center">
+<div class="w-full h-px bg-surface-container-high"></div>
+<span class="absolute px-3 bg-surface-container-lowest font-label-compact text-label-compact text-secondary uppercase tracking-wider">Atau gunakan Single Sign-On</span>
+</div>
+<!-- Single Sign-On Button -->
+<button class="w-full py-2 px-space-md bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-label-default text-label-default font-semibold rounded-lg shadow-sm hover:shadow transition-all flex items-center justify-center gap-3 cursor-pointer" type="button">
+<!-- Google G Minimal Vector -->
+<svg aria-hidden="true" class="w-4 h-4" viewbox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.15z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.94H1.24v3.15C3.26 21.4 7.33 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.26c-.25-.72-.38-1.49-.38-2.26s.13-1.54.38-2.26V6.59H1.24C.45 8.16 0 9.98 0 12c0 2.02.45 3.84 1.24 5.41l4.04-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.6 1.24 6.59l4.04 3.15c.95-2.84 3.6-4.99 6.72-4.99z" fill="#EA4335"></path>
+</svg>
+<span>Masuk dengan SSO Akun Kampus (Google)</span>
+</button>
+</form>
+<!-- Security Badge & Help Desk -->
+<div class="mt-space-lg pt-space-md flex flex-col gap-2 text-center">
+<div class="inline-flex items-center justify-center gap-1.5 font-code-mono text-[11px] text-secondary">
+<span class="material-symbols-outlined text-[14px] text-emerald-600">verified</span>
+<span>Koneksi Terenkripsi SSL 256-bit | Node Sarpras v4.2.1-prod</span>
+</div>
+<p class="font-label-compact text-label-compact text-secondary">
+              Kendala hak akses atau mutasi unit? 
+              <a class="text-primary font-semibold hover:underline" href="#helpdesk">Hubungi Helpdesk TIK Sarpras</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initLoginPage() {
+    const tabAdmin = document.getElementById('tabAdmin');
+    const tabUser = document.getElementById('tabUser');
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+    const passwordInput = document.getElementById('passwordInput');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const loginForm = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
 
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password" value="admin123" required />
-        </div>
+    // Role Tab Switching
+    function setRoleTab(activeTab, inactiveTab) {
+      activeTab.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      activeTab.classList.remove('text-secondary', 'font-medium');
+      
+      inactiveTab.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      inactiveTab.classList.add('text-secondary', 'font-medium');
+    }
 
-        <button class="primary-btn" type="submit">Masuk ke Dashboard</button>
-        <p id="loginStatus" style="margin: 0; font-weight: 700; min-height: 1.2em;"></p>
-      </form>
+    if (tabAdmin && tabUser) {
+      tabAdmin.addEventListener('click', () => setRoleTab(tabAdmin, tabUser));
+      tabUser.addEventListener('click', () => setRoleTab(tabUser, tabAdmin));
+    }
 
-      <div class="login-footer">
-        Demo admin: admin@perpus.id / admin123
-      </div>
-    </div>
+    // Password Visibility Toggle
+    if (togglePasswordBtn && passwordInput && eyeIcon) {
+      togglePasswordBtn.addEventListener('click', () => {
+        const isPassword = passwordInput.getAttribute('type') === 'password';
+        passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+        eyeIcon.textContent = isPassword ? 'visibility_off' : 'visibility';
+      });
+    }
 
-    <script src="assets/js/main.js"></script>
-  </body>
-</html>
+    // Simulated Login Interaction
+    if (loginForm && submitBtn) {
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <span class="inline-block animate-spin mr-2">
+            <span class="material-symbols-outlined text-[18px]">progress_activity</span>
+          </span>
+          <span>Memverifikasi Otorisasi...</span>
+        `;
+        
+        setTimeout(() => {
+          submitBtn.innerHTML = `
+            <span class="material-symbols-outlined text-[18px] text-emerald-300">check_circle</span>
+            <span>Berhasil! Mengalihkan ke Dashboard...</span>
+          `;
+          submitBtn.classList.replace('bg-primary-container', 'bg-emerald-600');
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+            submitBtn.classList.replace('bg-emerald-600', 'bg-primary-container');
+          }, 2000);
+        }, 1200);
+      });
+    }
+  })();
+</script></main><script src="assets/js/app.js"></script></body></html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sirkulasi Aset | SIM-ASET</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{font-family:Inter,sans-serif;color:#10243b;background:#f4f7fb;font-synthesis:none;--blue:#1557c0;--line:#dbe3ed;--muted:#617187;--green:#14744c;--amber:#9a5b00}*{box-sizing:border-box}body{margin:0}header{background:#10243b;color:#fff;padding:18px max(20px,calc((100% - 1180px)/2));display:flex;align-items:center;justify-content:space-between;gap:20px}header strong{font:700 18px 'Plus Jakarta Sans',sans-serif;letter-spacing:0}header span{color:#c8d5e3;font-size:12px}nav{display:flex;gap:6px;flex-wrap:wrap;background:#fff;border-bottom:1px solid var(--line);padding:10px max(16px,calc((100% - 1180px)/2))}nav a{color:#46566c;text-decoration:none;padding:9px 11px;border-radius:5px;font-size:13px}nav a[aria-current]{background:#eaf1fb;color:var(--blue);font-weight:700}main{max-width:1180px;margin:auto;padding:30px 20px 60px}h1,h2{font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:0}h1{font-size:26px;margin:5px 0 8px}h2{font-size:17px;margin:0 0 16px}.eyebrow{color:var(--blue);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.intro{color:var(--muted);font-size:14px;margin:0 0 24px}.layout{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:6px;padding:20px}.metric{display:flex;align-items:baseline;gap:8px;margin:0 0 20px}.metric b{font:700 30px 'Plus Jakarta Sans',sans-serif;color:var(--blue)}.metric span{font-size:13px;color:var(--muted)}label{display:block;font-size:12px;font-weight:600;margin:12px 0 6px}input,select{width:100%;border:1px solid #cbd5e1;border-radius:4px;background:#fff;color:#10243b;padding:10px;font:13px Inter,sans-serif}button,.action{border:0;border-radius:4px;background:var(--blue);color:#fff;padding:10px 13px;font:600 13px Inter,sans-serif;cursor:pointer}.secondary{background:#eaf1fb;color:#163f79}.action{padding:7px 9px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px;min-width:700px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #e7edf4;vertical-align:top}th{font-size:10px;color:#63748a;text-transform:uppercase;letter-spacing:.04em;background:#f7f9fc;white-space:nowrap}.badge{font-size:11px;font-weight:700;padding:4px 7px;border-radius:99px}.warning{background:#fff5df;color:var(--amber)}.success{background:#e8f7ef;color:var(--green)}.hint{font-size:12px;line-height:1.6;color:var(--muted);margin:16px 0 0}@media(max-width:800px){.layout{grid-template-columns:1fr}header{align-items:flex-start;flex-direction:column}main{padding:24px 14px}}
+  </style>
+  <style>@media(max-width:800px){.layout{grid-template-columns:minmax(0,1fr)}.layout>.panel{min-width:0}}</style>
+</head>
+<body>
+  <header><strong>SIM-ASET <span>/ Sirkulasi & Peminjaman</span></strong><span id="signedInUser">Workspace Sarana dan Prasarana</span></header>
+  <nav aria-label="Navigasi utama">
+    <a data-path="dashboard" href="#">Dashboard</a><a data-path="data-master" href="#">Data Master</a><a data-path="form-registrasi-aset" href="#">Registrasi Aset</a><a data-path="peminjaman-sirkulasi" href="#" aria-current="page">Sirkulasi</a><a data-path="laporan-pemeliharaan" href="#">Laporan</a><a data-path="pengaturan-sistem" href="#">Pengaturan</a>
+  </nav>
+  <main>
+    <div class="eyebrow">Operasional Aset</div><h1>Sirkulasi & Peminjaman</h1><p class="intro">Catat pengeluaran aset, pantau tenggat pengembalian, dan selesaikan transaksi saat barang kembali.</p>
+    <div class="layout">
+      <section class="panel"><h2>Transaksi Baru</h2><div class="metric"><b id="loanCount">0</b><span>peminjaman aktif</span></div>
+        <form id="loanForm"><label for="loanAsset">Aset tersedia</label><select id="loanAsset" name="asset" required></select><label for="loanBorrower">Peminjam / Unit Kerja</label><input id="loanBorrower" name="borrower" placeholder="Nama peminjam atau unit" required><label for="loanDue">Rencana kembali</label><input id="loanDue" name="due" type="date" required><button style="width:100%;margin-top:18px" type="submit">Catat Peminjaman</button></form>
+        <p class="hint">Status peminjaman dan pengembalian tersimpan di browser perangkat ini. Transaksi demo tidak mengirim data ke server.</p>
+      </section>
+      <section class="panel"><h2>Daftar Peminjaman</h2><div class="table-wrap"><table><thead><tr><th>No. Transaksi</th><th>Aset</th><th>Peminjam</th><th>Tanggal Pinjam</th><th>Batas Kembali</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="loanRows"></tbody></table></div></section>
+    </div>
+  </main>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>
