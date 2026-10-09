@@ -140,23 +140,23 @@
 <!-- Input 1: NIP / NIDN / Email -->
 <div class="flex flex-col gap-1.5">
 <label class="font-label-default text-label-default font-semibold text-on-surface flex items-center justify-between" for="identifierInput">
-<span>NIP / NIDN / Email Institusi</span>
+<span>Username</span>
 <span class="text-[11px] font-normal text-secondary font-code-mono">Wajib diisi</span>
 </label>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-3 text-secondary text-[18px] pointer-events-none">person</span>
-<input class="w-full pl-10 pr-3 py-2 bg-surface-container-lowest text-on-surface font-body-default text-body-default rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-bright placeholder:text-outline-variant transition-all shadow-sm" id="identifierInput" placeholder="misal: 198204122008011004 atau admin.sarpras@kampus.ac.id" required="" type="text"/>
+<input autocomplete="username" class="w-full pl-10 pr-3 py-2 bg-surface-container-lowest text-on-surface font-body-default text-body-default rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-bright placeholder:text-outline-variant transition-all shadow-sm" id="identifierInput" placeholder="admin" required="" type="text"/>
 </div>
 </div>
 <!-- Input 2: Kata Sandi -->
 <div class="flex flex-col gap-1.5">
 <div class="flex items-center justify-between">
-<label class="font-label-default text-label-default font-semibold text-on-surface" for="passwordInput">Kata Sandi</label>
+<label class="font-label-default text-label-default font-semibold text-on-surface" for="passwordInput">Password</label>
 <a class="font-label-compact text-label-compact text-primary hover:underline font-medium" href="#reset-password">Lupa Kata Sandi?</a>
 </div>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-3 text-secondary text-[18px] pointer-events-none">lock</span>
-<input class="w-full pl-10 pr-10 py-2 bg-surface-container-lowest text-on-surface font-body-default text-body-default rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-bright placeholder:text-outline-variant transition-all shadow-sm" id="passwordInput" placeholder="Masukkan kata sandi akun Anda" required="" type="password"/>
+<input autocomplete="current-password" class="w-full pl-10 pr-10 py-2 bg-surface-container-lowest text-on-surface font-body-default text-body-default rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-bright placeholder:text-outline-variant transition-all shadow-sm" id="passwordInput" placeholder="admin123" required="" type="password"/>
 <button aria-label="Tampilkan atau sembunyikan kata sandi" class="absolute right-2 p-1 text-secondary hover:text-on-surface rounded transition-colors flex items-center justify-center" id="togglePasswordBtn" type="button">
 <span class="material-symbols-outlined text-[18px]" id="eyeIcon">visibility</span>
 </button>

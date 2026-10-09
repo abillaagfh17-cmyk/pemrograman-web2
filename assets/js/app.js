@@ -114,9 +114,15 @@
     user?.addEventListener('click', () => { role = 'Peminjam Lab / Unit'; });
     form.addEventListener('submit', event => {
       event.preventDefault();
+      event.stopImmediatePropagation();
       const identifier = document.getElementById('identifierInput')?.value.trim();
       const password = document.getElementById('passwordInput')?.value;
       if (!identifier || !password) { form.reportValidity(); return; }
+      if (identifier !== 'admin' || password !== 'admin123') {
+        document.getElementById('passwordInput').value = '';
+        toast('Username atau password salah. Gunakan admin / admin123.');
+        return;
+      }
       const session = { identifier, role, loginAt: new Date().toISOString() };
       if (document.getElementById('rememberSession')?.checked) localStorage.setItem(keys.session, JSON.stringify(session));
       else sessionStorage.setItem(keys.session, JSON.stringify(session));

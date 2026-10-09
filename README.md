@@ -22,7 +22,7 @@ python -m http.server 8000
 
 Lalu buka `http://localhost:8000`.
 
-Untuk demo login, isi ID dan kata sandi dengan nilai apa pun yang tidak kosong. SSO belum dikonfigurasi.
+Kredensial login demo: username `admin`, password `admin123`. SSO belum dikonfigurasi.
 
 ## Struktur
 
