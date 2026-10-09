@@ -8,14 +8,15 @@
     settings: 'simaset.settings.v1',
     draft: 'simaset.assetDraft.v1'
   };
+  const siteBase = new URL('../../', document.currentScript.src).pathname;
   const routes = {
-    dashboard: '/pages/dashboard.html',
-    'data-master': '/pages/data-master.html',
-    'form-registrasi-aset': '/pages/form.html',
-    'laporan-pemeliharaan': '/pages/laporan.html',
-    'peminjaman-sirkulasi': '/pages/sirkulasi.html',
-    'pengaturan-sistem': '/pages/pengaturan.html',
-    login: '/'
+    dashboard: `${siteBase}pages/dashboard.html`,
+    'data-master': `${siteBase}pages/data-master.html`,
+    'form-registrasi-aset': `${siteBase}pages/form.html`,
+    'laporan-pemeliharaan': `${siteBase}pages/laporan.html`,
+    'peminjaman-sirkulasi': `${siteBase}pages/sirkulasi.html`,
+    'pengaturan-sistem': `${siteBase}pages/pengaturan.html`,
+    login: siteBase
   };
   const globalStyles = document.createElement('link');
   globalStyles.rel = 'stylesheet';
