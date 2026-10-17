@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal Peminjam | SIM-ASET</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{font-family:Inter,sans-serif;color:#10243b;background:#f4f7fb;font-synthesis:none;--blue:#1557c0;--line:#dbe3ed;--muted:#617187;--green:#14744c;--amber:#9a5b00}
+    *{box-sizing:border-box}body{margin:0}header{background:#10243b;color:#fff;padding:18px max(20px,calc((100% - 1180px)/2));display:flex;align-items:center;justify-content:space-between;gap:20px}header strong{font:700 18px 'Plus Jakarta Sans',sans-serif}header span{color:#c8d5e3;font-size:12px}
+    main{max-width:1180px;margin:auto;padding:32px 20px 60px}h1,h2{font-family:'Plus Jakarta Sans',sans-serif}h1{font-size:27px;margin:6px 0 8px}h2{font-size:17px;margin:0 0 16px}.eyebrow{color:var(--blue);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.intro{color:var(--muted);font-size:14px;margin:0 0 24px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:16px}.identity{color:var(--muted);font-size:13px}.logout{background:transparent;color:var(--blue);border:1px solid var(--line);border-radius:5px;padding:9px 12px;font:600 12px Inter,sans-serif;cursor:pointer}
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}.metric,.panel{background:#fff;border:1px solid var(--line);border-radius:7px}.metric{padding:16px 18px}.metric b{display:block;font:700 26px 'Plus Jakarta Sans',sans-serif;color:var(--blue);margin-bottom:4px}.metric span{font-size:12px;color:var(--muted)}
+    .layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:18px;align-items:start}.panel{padding:20px;min-width:0}.panel-note{font-size:12px;color:var(--muted);line-height:1.6;margin:-6px 0 14px}label{display:block;font-size:12px;font-weight:600;margin:13px 0 6px}input,select,textarea{width:100%;border:1px solid #cbd5e1;border-radius:4px;background:#fff;color:#10243b;padding:10px;font:13px Inter,sans-serif}textarea{min-height:84px;resize:vertical}button[type=submit]{width:100%;margin-top:17px;border:0;border-radius:4px;background:var(--blue);color:#fff;padding:11px 13px;font:600 13px Inter,sans-serif;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
+    .table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px;min-width:760px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #e7edf4;vertical-align:top}th{font-size:10px;color:#63748a;text-transform:uppercase;letter-spacing:.04em;background:#f7f9fc;white-space:nowrap}.status{display:inline-block;font-size:11px;font-weight:700;padding:4px 8px;border-radius:99px;background:#fff5df;color:var(--amber);white-space:nowrap}.status.borrowed{background:#eaf1fb;color:#174a96}.status.returned{background:#e8f7ef;color:var(--green)}.status.rejected{background:#fff0ee;color:#a32e25}.empty{text-align:center;color:var(--muted);padding:28px 12px;line-height:1.6}.footnote{font-size:11px;color:var(--muted);line-height:1.6;margin:18px 0 0}
+    @media(max-width:850px){.layout{grid-template-columns:1fr}}@media(max-width:600px){main{padding:24px 14px}.metrics{grid-template-columns:1fr}.top{align-items:flex-start}.identity{line-height:1.5}header{padding:16px 14px}}
+  </style>
+</head>
+<body>
+  <header><strong>SIM-ASET <span>/ Portal Peminjam</span></strong><span id="borrowerIdentity">Peminjam</span></header>
+  <main>
+    <div class="top">
+      <div><div class="eyebrow">Layanan Peminjam Lab / Unit</div><h1>Pengajuan Peminjaman Aset</h1></div>
+      <button class="logout" id="borrowerLogout" type="button">Keluar</button>
+    </div>
+    <p class="intro">Ajukan aset yang dibutuhkan dan pantau riwayat serta statusnya. Persetujuan, penyerahan, dan pengembalian diproses oleh admin.</p>
+    <section class="metrics" aria-label="Ringkasan pinjaman">
+      <div class="metric"><b id="borrowerLoanCount">0</b><span>Total pengajuan</span></div>
+      <div class="metric"><b id="pendingLoanCount">0</b><span>Menunggu persetujuan / penyerahan</span></div>
+      <div class="metric"><b id="activeLoanCount">0</b><span>Sedang dipinjam</span></div>
+    </section>
+    <div class="layout">
+      <section class="panel">
+        <h2>Formulir Pengajuan</h2>
+        <p class="panel-note">Pengajuan belum berarti aset langsung dipinjam. Tunggu persetujuan dan konfirmasi penyerahan dari admin.</p>
+        <form id="requestForm">
+          <label for="requestAsset">Aset yang diajukan</label>
+          <select id="requestAsset" name="asset" required></select>
+          <label for="requestBorrower">Nama peminjam / unit kerja</label>
+          <input id="requestBorrower" name="borrower" autocomplete="organization" placeholder="Contoh: Lab Multimedia" required>
+          <label for="requestDue">Rencana tanggal kembali</label>
+          <input id="requestDue" name="due" type="date" required>
+          <label for="requestPurpose">Keperluan</label>
+          <textarea id="requestPurpose" name="purpose" placeholder="Jelaskan keperluan peminjaman" required></textarea>
+          <button type="submit">Kirim Pengajuan</button>
+        </form>
+        <p class="footnote">Data demo tersimpan di browser perangkat ini. Untuk penggunaan lintas akun/perangkat diperlukan backend dan autentikasi server.</p>
+      </section>
+      <section class="panel">
+        <h2>Riwayat Pengajuan &amp; Pinjaman</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>No. Pengajuan</th><th>Aset</th><th>Tanggal Pengajuan</th><th>Tanggal Dipinjam</th><th>Rencana Kembali</th><th>Status</th><th>Keperluan</th></tr></thead>
+            <tbody id="borrowerLoanRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../assets/js/app.js?v=borrower-workflow-20261017"></script>
+</body>
+</html>

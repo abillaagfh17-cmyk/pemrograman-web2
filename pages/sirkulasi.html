@@ -18,13 +18,12 @@
     <a data-path="dashboard" href="#">Dashboard</a><a data-path="data-master" href="#">Data Master</a><a data-path="form-registrasi-aset" href="#">Registrasi Aset</a><a data-path="peminjaman-sirkulasi" href="#" aria-current="page">Sirkulasi</a><a data-path="laporan-pemeliharaan" href="#">Laporan</a><a data-path="pengaturan-sistem" href="#">Pengaturan</a>
   </nav>
   <main>
-    <div class="eyebrow">Operasional Aset</div><h1>Sirkulasi & Peminjaman</h1><p class="intro">Catat pengeluaran aset, pantau tenggat pengembalian, dan selesaikan transaksi saat barang kembali.</p>
+    <div class="eyebrow">Operasional Aset</div><h1>Sirkulasi & Peminjaman</h1><p class="intro">Tinjau pengajuan peminjam, setujui permohonan, catat penyerahan aset, dan konfirmasi pengembalian.</p>
     <div class="layout">
-      <section class="panel"><h2>Transaksi Baru</h2><div class="metric"><b id="loanCount">0</b><span>peminjaman aktif</span></div>
-        <form id="loanForm"><label for="loanAsset">Aset tersedia</label><select id="loanAsset" name="asset" required></select><label for="loanBorrower">Peminjam / Unit Kerja</label><input id="loanBorrower" name="borrower" placeholder="Nama peminjam atau unit" required><label for="loanDue">Rencana kembali</label><input id="loanDue" name="due" type="date" required><button style="width:100%;margin-top:18px" type="submit">Catat Peminjaman</button></form>
-        <p class="hint">Status peminjaman dan pengembalian tersimpan di browser perangkat ini. Transaksi demo tidak mengirim data ke server.</p>
+      <section class="panel"><h2>Permohonan Menunggu</h2><div class="metric"><b id="loanCount">0</b><span>permohonan perlu diproses</span></div>
+        <p class="hint">Gunakan aksi pada daftar untuk menyetujui pengajuan, mencatat penyerahan aset, dan mengonfirmasi pengembalian. Hanya admin yang dapat mengubah status. Data demo tersimpan di browser perangkat ini dan tidak dikirim ke server.</p>
       </section>
-      <section class="panel"><h2>Daftar Peminjaman</h2><div class="table-wrap"><table><thead><tr><th>No. Transaksi</th><th>Aset</th><th>Peminjam</th><th>Tanggal Pinjam</th><th>Batas Kembali</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="loanRows"></tbody></table></div></section>
+      <section class="panel"><h2>Pengajuan &amp; Daftar Peminjaman</h2><div class="table-wrap"><table><thead><tr><th>No. Transaksi</th><th>Aset / Keperluan</th><th>Peminjam</th><th>Tanggal Pengajuan / Pinjam</th><th>Batas Kembali</th><th>Status</th><th>Aksi Admin</th></tr></thead><tbody id="loanRows"></tbody></table></div></section>
     </div>
   </main>
   <script src="../assets/js/app.js?v=login-auth-20261010"></script>

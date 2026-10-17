@@ -135,6 +135,7 @@
 <span>Peminjam Lab / Unit</span>
 </button>
 </div>
+<p class="hidden -mt-2 mb-space-md text-center font-label-compact text-label-compact text-secondary" id="defaultLoginHint" aria-live="polite"></p>
 <!-- Login Form -->
 <form class="flex flex-col gap-space-md" id="loginForm" onsubmit="return false;">
 <!-- Input 1: NIP / NIDN / Email -->
@@ -215,11 +216,13 @@
   (function initLoginPage() {
     const tabAdmin = document.getElementById('tabAdmin');
     const tabUser = document.getElementById('tabUser');
+    const identifierInput = document.getElementById('identifierInput');
     const togglePasswordBtn = document.getElementById('togglePasswordBtn');
     const passwordInput = document.getElementById('passwordInput');
     const eyeIcon = document.getElementById('eyeIcon');
     const loginForm = document.getElementById('loginForm');
     const submitBtn = document.getElementById('submitBtn');
+    const defaultLoginHint = document.getElementById('defaultLoginHint');
 
     // Role Tab Switching
     function setRoleTab(activeTab, inactiveTab) {
@@ -231,8 +234,19 @@
     }
 
     if (tabAdmin && tabUser) {
-      tabAdmin.addEventListener('click', () => setRoleTab(tabAdmin, tabUser));
-      tabUser.addEventListener('click', () => setRoleTab(tabUser, tabAdmin));
+      tabAdmin.addEventListener('click', () => {
+        setRoleTab(tabAdmin, tabUser);
+        identifierInput.value = '';
+        passwordInput.value = '';
+        defaultLoginHint.classList.add('hidden');
+      });
+      tabUser.addEventListener('click', () => {
+        setRoleTab(tabUser, tabAdmin);
+        identifierInput.value = 'peminjam';
+        passwordInput.value = 'peminjam123';
+        defaultLoginHint.textContent = 'Login default Peminjam: peminjam / peminjam123';
+        defaultLoginHint.classList.remove('hidden');
+      });
     }
 
     // Password Visibility Toggle

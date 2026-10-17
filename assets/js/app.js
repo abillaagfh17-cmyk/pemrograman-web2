@@ -15,8 +15,9 @@
     'form-registrasi-aset': `${siteBase}pages/form.html`,
     'laporan-pemeliharaan': `${siteBase}pages/laporan.html`,
     'peminjaman-sirkulasi': `${siteBase}pages/sirkulasi.html`,
+    'peminjaman-peminjam': `${siteBase}pages/peminjam.html`,
     'pengaturan-sistem': `${siteBase}pages/pengaturan.html`,
-    login: siteBase
+    login: `${siteBase}index.html`
   };
   const globalStyles = document.createElement('link');
   globalStyles.rel = 'stylesheet';
@@ -26,6 +27,11 @@
   const read = (key, fallback) => {
     try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
   };
+  function getSession() {
+    const persistentSession = read(keys.session, null);
+    if (persistentSession) return persistentSession;
+    try { return JSON.parse(sessionStorage.getItem(keys.session)); } catch { return null; }
+  }
   const write = (key, value) => localStorage.setItem(key, JSON.stringify(value));
   const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
   const text = element => element?.textContent?.replace(/\s+/g, ' ').trim() || '';
@@ -119,15 +125,19 @@
       const identifier = document.getElementById('identifierInput')?.value.trim();
       const password = document.getElementById('passwordInput')?.value;
       if (!identifier || !password) { form.reportValidity(); return; }
-      if (identifier !== 'admin' || password !== 'admin123') {
+      const isAdmin = role === 'Petugas / Admin' && identifier === 'admin' && password === 'admin123';
+      const isBorrower = role === 'Peminjam Lab / Unit' && identifier === 'peminjam' && password === 'peminjam123';
+      if (!isAdmin && !isBorrower) {
         document.getElementById('passwordInput').value = '';
-        toast('Username atau password salah. Gunakan admin / admin123.');
+        toast(role === 'Peminjam Lab / Unit'
+          ? 'Login peminjam demo: peminjam / peminjam123.'
+          : 'Login admin demo: admin / admin123.');
         return;
       }
       const session = { identifier, role, loginAt: new Date().toISOString() };
       if (document.getElementById('rememberSession')?.checked) localStorage.setItem(keys.session, JSON.stringify(session));
       else sessionStorage.setItem(keys.session, JSON.stringify(session));
-      go('dashboard');
+      go(isBorrower ? 'peminjaman-peminjam' : 'dashboard');
     }, true);
     document.querySelectorAll('a[href="#reset-password"],a[href="#helpdesk"],a[href="#panduan"]').forEach(link => link.addEventListener('click', event => {
       event.preventDefault();
@@ -356,6 +366,49 @@
       icon?.classList.add('animate-spin');
       setTimeout(() => { icon?.classList.remove('animate-spin'); toast('Data lokal berhasil disinkronkan.'); }, 700);
     });
+    const notificationButton = document.querySelector('button[aria-label="Notifikasi Pemeliharaan"]');
+    if (notificationButton) {
+      const notificationContainer = notificationButton.parentElement;
+      notificationContainer.classList.add('relative');
+      notificationButton.setAttribute('aria-expanded', 'false');
+      notificationButton.setAttribute('aria-controls', 'loanNotifications');
+      notificationButton.setAttribute('aria-label', 'Notifikasi pengajuan peminjaman');
+      const badge = notificationButton.querySelector('span.bg-error');
+      let panel = document.getElementById('loanNotifications');
+      if (!panel) {
+        panel = document.createElement('section');
+        panel.id = 'loanNotifications';
+        panel.setAttribute('aria-label', 'Notifikasi pengajuan peminjaman');
+        panel.setAttribute('aria-live', 'polite');
+        panel.className = 'hidden absolute right-0 top-full mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-lg border border-outline-variant/40 bg-surface-container-lowest shadow-xl z-[70] overflow-hidden';
+        notificationContainer.append(panel);
+      }
+      function renderNotifications() {
+        const requests = read(keys.loans, []).filter(loan => loan.status === 'Pengajuan');
+        if (badge) {
+          badge.textContent = String(requests.length);
+          badge.classList.toggle('hidden', requests.length === 0);
+        }
+        notificationButton.setAttribute('aria-label', `Notifikasi pengajuan peminjaman, ${requests.length} menunggu persetujuan`);
+        panel.innerHTML = `<div class="flex items-center justify-between border-b border-outline-variant/30 px-4 py-3"><strong class="text-sm text-on-surface">Pengajuan Peminjaman</strong><span class="text-xs text-on-surface-variant">${requests.length} menunggu</span></div>${requests.length ? `<ul class="max-h-80 divide-y divide-outline-variant/20 overflow-y-auto">${requests.slice(0, 8).map(loan => `<li><a class="block px-4 py-3 transition-colors hover:bg-surface-container-low" href="${escapeHtml(routes['peminjaman-sirkulasi'])}"><span class="block text-sm font-semibold text-on-surface">${escapeHtml(loan.asset)}</span><span class="mt-1 block text-xs text-on-surface-variant">${escapeHtml(loan.borrower)} · ${escapeHtml(loan.requestDate || 'Tanggal tidak tersedia')}</span><span class="mt-1 block text-xs text-primary">Menunggu persetujuan admin · ${escapeHtml(loan.id)}</span></a></li>`).join('')}</ul>${requests.length > 8 ? '<p class="border-t border-outline-variant/30 px-4 py-2 text-xs text-on-surface-variant">Menampilkan 8 pengajuan terbaru.</p>' : ''}` : '<p class="px-4 py-5 text-sm text-on-surface-variant">Tidak ada pengajuan peminjaman yang menunggu persetujuan.</p>'}`;
+      }
+      renderNotifications();
+      notificationButton.addEventListener('click', () => {
+        const isOpen = !panel.classList.contains('hidden');
+        renderNotifications();
+        panel.classList.toggle('hidden', isOpen);
+        notificationButton.setAttribute('aria-expanded', String(!isOpen));
+      });
+      document.addEventListener('click', event => {
+        if (!notificationContainer.contains(event.target)) {
+          panel.classList.add('hidden');
+          notificationButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+      window.addEventListener('storage', event => {
+        if (event.key === keys.loans) renderNotifications();
+      });
+    }
     document.getElementById('btn-export-pdf')?.addEventListener('click', () => window.print());
     document.querySelectorAll('button').forEach(button => {
       if (text(button).includes('Jadwalkan Servis')) button.addEventListener('click', () => {
@@ -397,44 +450,122 @@
   function bindLoans() {
     const body = document.getElementById('loanRows');
     if (!body) return;
+    if (getSession()?.role !== 'Petugas / Admin') { go('login'); return; }
     let loans = read(keys.loans, [
       { id: 'PJM-2026-001', asset: 'Laptop Dell Latitude 5440', borrower: 'BEM Fakultas Teknik', start: '2026-10-08', due: '2026-10-12', status: 'Dipinjam' },
       { id: 'PJM-2026-002', asset: 'Proyektor Epson EB-2250U', borrower: 'Lab Multimedia', start: '2026-10-09', due: '2026-10-11', status: 'Dipinjam' }
     ]);
     write(keys.loans, loans);
-    const assetSelect = document.getElementById('loanAsset');
-    function refreshAssetOptions() {
-      if (!assetSelect) return;
-      assetSelect.innerHTML = getAssets().filter(asset => asset.status === 'Tersedia').map(asset => `<option value="${escapeHtml(asset.code)}">${escapeHtml(asset.name)}</option>`).join('') || '<option value="">Tidak ada aset tersedia</option>';
+    function render() {
+      body.innerHTML = loans.map(loan => {
+        const statusClass = loan.status === 'Pengajuan' || loan.status === 'Dipinjam' ? 'warning' : loan.status === 'Disetujui' || loan.status === 'Dikembalikan' ? 'success' : '';
+        let action = '—';
+        if (loan.status === 'Pengajuan') action = `<button class="action" data-loan-action="approve" data-loan-id="${escapeHtml(loan.id)}">Setujui</button>`;
+        else if (loan.status === 'Disetujui') action = `<button class="action" data-loan-action="issue" data-loan-id="${escapeHtml(loan.id)}">Serahkan aset</button>`;
+        else if (loan.status === 'Dipinjam') action = `<button class="action" data-loan-action="return" data-loan-id="${escapeHtml(loan.id)}">Konfirmasi kembali</button>`;
+        return `<tr><td>${escapeHtml(loan.id)}</td><td>${escapeHtml(loan.asset)}<br><small>${escapeHtml(loan.purpose || '')}</small></td><td>${escapeHtml(loan.borrower)}</td><td>${escapeHtml(loan.start || loan.requestDate || '-')}</td><td>${escapeHtml(loan.due || '-')}</td><td><span class="badge ${statusClass}">${escapeHtml(loan.status)}</span></td><td>${action}</td></tr>`;
+      }).join('') || '<tr><td colspan="7">Belum ada permohonan peminjaman.</td></tr>';
+      document.getElementById('loanCount').textContent = loans.filter(loan => loan.status === 'Pengajuan' || loan.status === 'Disetujui').length;
+    }
+    body.addEventListener('click', event => {
+      const button = event.target.closest('[data-loan-action]');
+      if (!button) return;
+      const loan = loans.find(item => item.id === button.dataset.loanId);
+      if (!loan) return;
+      const today = new Date().toISOString().slice(0, 10);
+      if (button.dataset.loanAction === 'approve') {
+        const asset = getAssets().find(item => item.code === loan.assetCode);
+        const alreadyApproved = loans.some(item => item.id !== loan.id && item.assetCode === loan.assetCode && (item.status === 'Disetujui' || item.status === 'Dipinjam'));
+        if (!asset || asset.status !== 'Tersedia' || alreadyApproved) {
+          toast('Aset tidak tersedia atau sudah disetujui untuk peminjam lain.');
+          return;
+        }
+        loans = loans.map(item => item.id === loan.id ? { ...item, status: 'Disetujui', approvedAt: today } : item);
+        toast('Permohonan disetujui. Serahkan aset untuk memulai masa pinjam.');
+      } else if (button.dataset.loanAction === 'issue') {
+        const assets = getAssets();
+        const asset = assets.find(item => item.code === loan.assetCode);
+        if (!asset || asset.status !== 'Tersedia') {
+          toast('Aset tidak tersedia untuk diserahkan. Periksa status aset terlebih dahulu.');
+          return;
+        }
+        asset.status = 'Dipinjam';
+        setAssets(assets);
+        loans = loans.map(item => item.id === loan.id ? { ...item, status: 'Dipinjam', start: today } : item);
+        toast('Penyerahan aset dicatat. Status menjadi Dipinjam.');
+      } else if (button.dataset.loanAction === 'return') {
+        loans = loans.map(item => item.id === loan.id ? { ...item, status: 'Dikembalikan', returnedAt: today } : item);
+        if (loan.assetCode) {
+          const assets = getAssets().map(asset => asset.code === loan.assetCode ? { ...asset, status: 'Tersedia' } : asset);
+          setAssets(assets);
+        }
+        toast('Pengembalian aset dikonfirmasi.');
+      }
+      write(keys.loans, loans);
+      render();
+    });
+    render();
+  }
+
+  function bindBorrowerPage() {
+    const form = document.getElementById('requestForm');
+    const rows = document.getElementById('borrowerLoanRows');
+    if (!form || !rows) return;
+    const session = getSession();
+    if (session?.role !== 'Peminjam Lab / Unit') { go('login'); return; }
+    const identifier = session.identifier;
+    const userLabel = document.getElementById('borrowerIdentity');
+    if (userLabel) userLabel.textContent = identifier;
+    const assetSelect = document.getElementById('requestAsset');
+    document.getElementById('requestDue').min = new Date().toISOString().slice(0, 10);
+    function refreshAssets() {
+      const available = getAssets().filter(asset => asset.status === 'Tersedia');
+      assetSelect.innerHTML = available.map(asset => `<option value="${escapeHtml(asset.code)}">${escapeHtml(asset.name)}</option>`).join('') || '<option value="">Tidak ada aset tersedia</option>';
+      assetSelect.disabled = available.length === 0;
+      form.querySelector('button[type="submit"]').disabled = available.length === 0;
     }
     function render() {
-      refreshAssetOptions();
-      body.innerHTML = loans.map(loan => `<tr><td>${escapeHtml(loan.id)}</td><td>${escapeHtml(loan.asset)}</td><td>${escapeHtml(loan.borrower)}</td><td>${escapeHtml(loan.start)}</td><td>${escapeHtml(loan.due)}</td><td><span class="badge ${loan.status === 'Dipinjam' ? 'warning' : 'success'}">${escapeHtml(loan.status)}</span></td><td>${loan.status === 'Dipinjam' ? `<button class="action" data-return="${escapeHtml(loan.id)}">Tandai Kembali</button>` : 'Selesai'}</td></tr>`).join('') || '<tr><td colspan="7">Belum ada transaksi peminjaman.</td></tr>';
-      document.getElementById('loanCount').textContent = loans.filter(loan => loan.status === 'Dipinjam').length;
+      const loans = read(keys.loans, []).filter(loan => loan.borrowerId === identifier);
+      rows.innerHTML = loans.map(loan => {
+        const statusClass = loan.status === 'Dipinjam' ? 'borrowed' : loan.status === 'Dikembalikan' ? 'returned' : loan.status === 'Ditolak' ? 'rejected' : 'pending';
+        return `<tr><td>${escapeHtml(loan.id)}</td><td>${escapeHtml(loan.asset)}</td><td>${escapeHtml(loan.requestDate || '-')}</td><td>${escapeHtml(loan.start || '-')}</td><td>${escapeHtml(loan.due || '-')}</td><td><span class="status ${statusClass}">${escapeHtml(loan.status)}</span></td><td>${escapeHtml(loan.purpose || '-')}</td></tr>`;
+      }).join('') || '<tr><td colspan="7" class="empty">Belum ada riwayat pengajuan. Gunakan formulir untuk mengajukan peminjaman.</td></tr>';
+      document.getElementById('borrowerLoanCount').textContent = loans.length;
+      document.getElementById('pendingLoanCount').textContent = loans.filter(loan => loan.status === 'Pengajuan' || loan.status === 'Disetujui').length;
+      document.getElementById('activeLoanCount').textContent = loans.filter(loan => loan.status === 'Dipinjam').length;
+      refreshAssets();
     }
-    document.getElementById('loanForm')?.addEventListener('submit', event => {
+    form.addEventListener('submit', event => {
       event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      const borrower = String(data.get('borrower') || '').trim();
-      if (!borrower || !assetSelect.value) return;
+      const data = new FormData(form);
       const assets = getAssets();
-      const asset = assets.find(item => item.code === assetSelect.value);
-      if (!asset || asset.status !== 'Tersedia') { toast('Aset tidak lagi tersedia. Muat ulang pilihan aset.'); render(); return; }
-      loans.unshift({ id: `PJM-${new Date().getFullYear()}-${String(Date.now()).slice(-4)}`, asset: asset.name, assetCode: asset.code, borrower, start: new Date().toISOString().slice(0, 10), due: data.get('due'), status: 'Dipinjam' });
-      asset.status = 'Dipinjam';
-      setAssets(assets);
-      write(keys.loans, loans); event.currentTarget.reset(); render(); toast('Peminjaman berhasil dicatat.');
-    });
-    body.addEventListener('click', event => {
-      const button = event.target.closest('[data-return]');
-      if (!button) return;
-      const loan = loans.find(item => item.id === button.dataset.return);
-      loans = loans.map(item => item.id === button.dataset.return ? { ...item, status: 'Dikembalikan' } : item);
-      if (loan?.assetCode) {
-        const assets = getAssets().map(asset => asset.code === loan.assetCode ? { ...asset, status: 'Tersedia' } : asset);
-        setAssets(assets);
+      const asset = assets.find(item => item.code === data.get('asset') && item.status === 'Tersedia');
+      if (!asset) {
+        toast('Aset sudah tidak tersedia. Silakan pilih aset lain.');
+        render();
+        return;
       }
-      write(keys.loans, loans); render(); toast('Pengembalian aset sudah dicatat.');
+      const loans = read(keys.loans, []);
+      loans.unshift({
+        id: `PJM-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`,
+        borrowerId: identifier,
+        borrower: String(data.get('borrower') || '').trim(),
+        asset: asset.name,
+        assetCode: asset.code,
+        requestDate: new Date().toISOString().slice(0, 10),
+        due: String(data.get('due') || ''),
+        purpose: String(data.get('purpose') || '').trim(),
+        status: 'Pengajuan'
+      });
+      write(keys.loans, loans);
+      form.reset();
+      render();
+      toast('Pengajuan terkirim dan menunggu persetujuan admin.');
+    });
+    document.getElementById('borrowerLogout')?.addEventListener('click', () => {
+      localStorage.removeItem(keys.session);
+      sessionStorage.removeItem(keys.session);
+      go('login');
     });
     render();
   }
@@ -471,5 +602,6 @@
   bindDashboard();
   bindReports();
   bindLoans();
+  bindBorrowerPage();
   bindSettings();
 })();
